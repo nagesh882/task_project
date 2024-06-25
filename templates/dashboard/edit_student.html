@@ -1,0 +1,40 @@
+{% extends "dashboard/dashboard_base.html" %}
+
+{% block dashboard %}
+
+
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+
+                    </div>
+
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Edit Student Data</h6>
+                        </div>
+                        <div class="card-body">                            
+                            <form action="" method="POST"> {% csrf_token %}
+                                <div class="form-row">
+                                    {% for register_form in StudentEditForm %}
+                                        <div class="form-group col-4 mb-2">
+                                            <label for="{{register_form.id_for_label}}">{{register_form.label}}</label><br/>
+                                            {{register_form}} <!-- field -->
+                                        </div> <!-- form-group end.// -->
+                                    {% endfor %}
+                                </div> <!-- form-row end.// -->
+                                <div class="form-group mt-3">
+                                    <button type="submit" class="btn btn-primary"> Edit Data  </button>
+                                </div> <!-- form-group// -->      						
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+
+{% endblock dashboard %}

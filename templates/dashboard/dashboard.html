@@ -1,0 +1,58 @@
+{% extends "dashboard/dashboard_base.html" %}
+
+{% block dashboard %}
+
+
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+
+                    </div>
+
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Student Data</h6>
+                            <span class="d-sm-flex align-items-end justify-content-end"><a href="{% url 'add_student' %}" class="btn btn-sm btn-primary">Add Student</a></span>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Mobile Number</th>
+                                            <th>Email</th>
+                                            <th>address</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+                                        {% if studentData %}
+                                            {% for student in studentData %}
+                                                <tr>
+                                                    <td>{{student.first_name}}</td>
+                                                    <td>{{student.last_name}}</td>
+                                                    <td>{{student.mobile_number}}</td>
+                                                    <td>{{student.email | truncatechars:20}}</td>
+                                                    <td>{{student.address | truncatechars:20 }}</td>
+                                                    <td><a href="{% url 'edit_student' student.student_id %}" class="btn btn-sm btn-info">Edit</a> <a href="{% url 'delete_student' student.student_id %}" class="btn btn-sm btn-danger">Delete</a></td>
+                                                </tr>
+                                            {% endfor %}
+                                        {% else %}
+                                            <tr><td class="text-white bg-danger" colspan="6">No data found</td></tr>
+                                        {% endif %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            {% endblock dashboard %}

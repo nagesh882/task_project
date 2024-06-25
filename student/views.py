@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from student.models import StudentInfo
-from student.forms import StudentForm, StudentEditForm
+from student.forms import StudentForm
 
 # Create your views here.
 
@@ -41,15 +41,16 @@ def edit_student(request, student_id):
     if request.user.is_authenticated:
         student = StudentInfo.objects.get(student_id=student_id)
         if request.method == "POST":
-            form = StudentEditForm(request.POST, instance=student)
+            form = StudentForm(request.POST, instance=student)
             if form.is_valid():
                 form.save()
                 return redirect('dashboard')
         else:
-            form = StudentEditForm(instance=student)
+            form = StudentForm(instance=student)
         
         context = {
-            'StudentEditForm':form
+            'StudentEditForm':form,
+            'student_id': student_id
         }
             
         return render(request, 'dashboard/edit_student.html', context)

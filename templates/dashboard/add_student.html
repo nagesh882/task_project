@@ -19,18 +19,26 @@
                             
                         </div>
                         <div class="card-body">                            
-                            <form action="{% url 'add_student' %}" method="POST"> {% csrf_token %}
+                            <form action="{% url 'add_student' %}" method="POST" novalidate> {% csrf_token %}
                                 <div class="form-row">
                                     {% for register_form in StudentAddForm %}
                                         <div class="form-group col-4 mb-2">
                                             <label for="{{register_form.id_for_label}}">{{register_form.label}}</label><br/>
                                             {{register_form}} <!-- field -->
+                                            {% if register_form.errors %}
+                                                <small class="text-danger">
+                                                    {% for error in register_form.errors %}
+                                                        <strong>{{ error }}</strong> 
+                                                    {% endfor %}
+                                                </small>
+                                            {% endif %}
                                         </div> <!-- form-group end.// --> 
-                                    {% endfor %}
+                                        {% endfor %}
                                 </div> <!-- form-row end.// -->
-                                <div class="form-group mt-3">
-                                    <button type="submit" class="btn btn-primary"> Add Data  </button>
-                                </div> <!-- form-group// -->      						
+                                    <div class="form-group mt-3">
+                                        <button type="submit" class="btn btn-success"> Add Data  </button>
+                                        <a href="{% url 'dashboard' %}" class='btn btn-outline-primary'>Back</a>
+                                    </div> <!-- form-group// -->      						
                             </form>
                         </div>
                     </div>

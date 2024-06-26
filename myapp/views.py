@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from myapp.forms import signUpForm, signInForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 
 def sign_up(request):
@@ -10,6 +11,7 @@ def sign_up(request):
         form = signUpForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, 'User registered successfully!')
             return redirect('sign_in')
     else:
         form = signUpForm()
@@ -34,6 +36,8 @@ def sign_in(request):
 
                 if user is not None:
                     login(request, user)
+                    messages.success(request, 'User logged in successfully!')
+
                     return redirect('dashboard')
         else:
             form = signInForm()
@@ -48,7 +52,7 @@ def sign_in(request):
 @login_required(login_url='sign_in')
 def sign_out(request):
     logout(request)
-
+    messages.success(request, 'User logged out successfully!')
     return redirect('sign_in')
 
 

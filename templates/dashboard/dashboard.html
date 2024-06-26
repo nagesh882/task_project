@@ -23,6 +23,7 @@
                             </div>
                         </div>
                         <div class="card-body">
+                            {% include "alert.html" %}
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
@@ -38,7 +39,7 @@
                                     
                                     <tbody>
                                         {% if studentData %}
-                                            {% for student in studentData %}
+                                            {% for student in studentData reversed %}
                                                 <tr>
                                                     <td>{{student.first_name}}</td>
                                                     <td>{{student.last_name}}</td>

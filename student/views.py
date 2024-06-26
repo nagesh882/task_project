@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from student.models import StudentInfo
 from student.forms import StudentForm
+from django.contrib import messages
 
 # Create your views here.
 
@@ -23,6 +24,7 @@ def add_student(request):
             form = StudentForm(request.POST)
             if form.is_valid():
                 form.save()
+                messages.success(request, 'Student data added successflly!')
                 return redirect('dashboard')
         else:
             form = StudentForm()
@@ -44,6 +46,7 @@ def edit_student(request, student_id):
             form = StudentForm(request.POST, instance=student)
             if form.is_valid():
                 form.save()
+                messages.success(request, 'Student data updated successflly!')
                 return redirect('dashboard')
         else:
             form = StudentForm(instance=student)
@@ -65,6 +68,7 @@ def delete_student(request, student_id):
         student = StudentInfo.objects.get(student_id=student_id)
         if student:
             student.delete()
+            messages.success(request, 'Student data deleted successflly!')
             return redirect("dashboard")
                 
     else:

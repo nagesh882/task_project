@@ -38,7 +38,7 @@ def sign_in(request):
                     login(request, user)
                     messages.success(request, 'User logged in successfully!')
 
-                    return redirect('dashboard')
+                    return redirect('home')
         else:
             form = signInForm()
 

@@ -8,7 +8,9 @@
 		<!-- ============================ COMPONENT LOGIN   ================================= -->
 		<div class="card mx-auto" style="max-width: 380px; margin-top:100px;">
 			<div class="card-body">
-			<h4 class="card-title mb-4">Sign in</h4>
+			<h4 class="card-title mb-4 text-success h2">Sign in</h4>
+	            {% include "alert.html" %}
+
 				<form action="{% url 'sign_in' %}" method="POST"> {% csrf_token %}
 					<div class="form-group mb-3">
 						{% for register_form in signinForm %}

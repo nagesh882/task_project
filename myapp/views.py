@@ -7,19 +7,22 @@ from django.contrib import messages
 
 
 def sign_up(request):
-    if request.method == "POST":
-        form = signUpForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'User registered successfully!')
-            return redirect('sign_in')
-    else:
-        form = signUpForm()
+    if not request.user.is_authenticated:
+        if request.method == "POST":
+            form = signUpForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'User registered successfully!')
+                return redirect('sign_in')
+        else:
+            form = signUpForm()
 
-    context = {
-        'signupForm': form
-    } 
-    return render(request, 'signup.html', context)
+        context = {
+            'signupForm': form
+        } 
+        return render(request, 'signup.html', context)
+    else:
+        return redirect('dashboard')
 
 
 
@@ -36,7 +39,7 @@ def sign_in(request):
 
                 if user is not None:
                     login(request, user)
-                    messages.success(request, 'User logged in successfully!')
+                    # messages.success(request, 'User logged in successfully!')
 
                     return redirect('home')
         else:
